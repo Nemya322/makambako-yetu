@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mk_yetu_app/features/discovery/data/unconfigured_place_repository.dart';
 import 'package:mk_yetu_app/features/discovery/domain/discovery_result.dart';
 import 'package:mk_yetu_app/features/discovery/domain/geographic_area.dart';
 import 'package:mk_yetu_app/features/discovery/domain/place.dart';
@@ -20,6 +21,11 @@ void main() {
     await tester.enterText(find.byKey(const ValueKey('home-search')), 'kahawa');
     await tester.pumpAndSettle();
 
+    await tester.scrollUntilVisible(
+      find.text('Kahawa ya Mfano'),
+      250,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(find.text('Kahawa ya Mfano'), findsOneWidget);
     expect(find.text('MAENDELEZO TU · SI BIASHARA HALISI'), findsOneWidget);
     await tester.tap(find.text('Kahawa ya Mfano'));
@@ -28,6 +34,11 @@ void main() {
     expect(
       find.text('REKODI YA MAENDELEZO TU — SI BIASHARA ILIYOTHIBITISHWA'),
       findsOneWidget,
+    );
+    await tester.scrollUntilVisible(
+      find.text('Chanzo: Synthetic test fixture'),
+      250,
+      scrollable: find.byType(Scrollable).first,
     );
     expect(find.text('Chanzo: Synthetic test fixture'), findsOneWidget);
     expect(_WidgetPlaceRepository.lastLookedUpId, place.id);
@@ -51,10 +62,12 @@ void main() {
     expect(find.text('Taarifa za maeneo bado hazijaunganishwa'), findsNothing);
   });
 
-  testWidgets('the app default reports missing source, not zero matches', (
+  testWidgets('an unconfigured source is distinct from zero matches', (
     tester,
   ) async {
-    await tester.pumpWidget(const MakambakoYetuApp());
+    await tester.pumpWidget(
+      const MakambakoYetuApp(placeRepository: UnconfiguredPlaceRepository()),
+    );
     await tester.enterText(find.byKey(const ValueKey('home-search')), 'kahawa');
     await tester.pumpAndSettle();
     await tester.scrollUntilVisible(
@@ -68,6 +81,39 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('Hakuna maeneo yaliyolingana'), findsNothing);
+  });
+
+  testWidgets('default trial fixtures are labelled and open a detail page', (
+    tester,
+  ) async {
+    await tester.pumpWidget(const MakambakoYetuApp());
+    await tester.enterText(find.byKey(const ValueKey('home-search')), 'ofisi');
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(
+      find.text('Ofisi ya Kata ya Jaribio'),
+      250,
+      scrollable: find.byType(Scrollable).first,
+    );
+    expect(find.text('Ofisi ya Kata ya Jaribio'), findsOneWidget);
+    expect(find.text('MAENDELEZO TU · SI BIASHARA HALISI'), findsNWidgets(3));
+
+    await tester.tap(find.text('Ofisi ya Kata ya Jaribio'));
+    await tester.pumpAndSettle();
+    expect(
+      find.text('REKODI YA MAENDELEZO TU — SI BIASHARA ILIYOTHIBITISHWA'),
+      findsOneWidget,
+    );
+    expect(find.text('Chanzo: Trial development fixture'), findsOneWidget);
+
+    // The detail is a full-screen route, so back returns to the results.
+    await tester.tap(find.byType(BackButton));
+    await tester.pumpAndSettle();
+    expect(
+      find.text('REKODI YA MAENDELEZO TU — SI BIASHARA ILIYOTHIBITISHWA'),
+      findsNothing,
+    );
+    expect(find.text('Ofisi ya Kata ya Jaribio'), findsOneWidget);
   });
 
   testWidgets('timeout is shown distinctly and provides retry', (tester) async {

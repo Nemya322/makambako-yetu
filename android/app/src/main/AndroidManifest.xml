@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Required for future backend/API access (release builds; debug builds
+         already include it via src/debug/AndroidManifest.xml). -->
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="mk_yetu_app"
+        android:label="Makambako Yetu"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

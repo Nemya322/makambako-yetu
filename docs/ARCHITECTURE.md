@@ -5,10 +5,12 @@
 Phase One integrations.
 
 **Phase One worktree update:** Provider-neutral place/location models,
-repository contracts, deterministic ranking, typed outcomes, and test-only
-discovery UI are now implemented. The default runtime repository remains
-unconfigured. No provider, backend, production listing source, or location
-permission has been selected or integrated.
+repository contracts, deterministic ranking, typed outcomes, and tested
+discovery UI are now implemented. The default runtime repository serves
+clearly badged trial development fixtures (trial services and offices) so the
+discovery slice is exercisable end to end; the unconfigured no-source state
+remains implemented and tested. No provider, backend, production listing
+source, or location permission has been selected or integrated.
 
 ## 1. Product architecture
 
@@ -166,9 +168,10 @@ The map and search must reference the same canonical place/business IDs.
 The current client boundary exposes `search`, `findWithinBounds`, and
 `getById` operations over one canonical place ID. The bounds operation is a
 data contract only; it is not a map SDK, viewport controller, or rendering
-implementation. The default repository returns a typed not-configured result
-so that absence of a data source is not mistaken for a successful empty
-search.
+implementation. The unconfigured repository returns a typed not-configured
+result so that absence of a data source is not mistaken for a successful
+empty search; the current default serves clearly badged trial fixtures
+instead.
 
 ## 5. Map and geographic integration
 

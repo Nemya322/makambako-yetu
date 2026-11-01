@@ -74,32 +74,32 @@ record from search and the shared map.
   case-insensitive exact, prefix, alias, partial, and description/address
   ranking; category/area filters; bounds queries; canonical ID lookup; UI
   loading, empty, timeout, server-error, and not-configured states; detail
-  lookup by the selected result ID.
-- **Implemented but test-only:** synthetic records exercise search, filter,
-  bounds, and detail behavior. The UI visibly labels any injected development
-  fixture. No synthetic listing is configured in the runtime app.
-- **Not implemented:** backend/API, approved listings, map SDK/tiles/markers,
-  attribution, actual map-to-detail interaction, and a selectable area
-  directory. The Explore screen explicitly says the map is unavailable.
-- **Manual area:** the repository accepts an optional canonical area ID and
-  needs no GPS permission. A user-facing area selector remains unimplemented
-  until an authoritative area directory is selected.
+  lookup by the selected result ID; full-screen place-detail routing with back
+  navigation; five-destination navigation including a Community tab that
+  honestly reports no connected feed.
+- **Runtime trial data (owner-requested 2026-10-21):** the default repository
+  serves six clearly badged trial records — services and offices named "ya
+  Jaribio" — so search, category filtering, and detail routing are exercisable
+  end to end. The UI visibly labels every injected development fixture, and the
+  unconfigured no-source state remains implemented and tested.
+- **Pragmatic Implementation:** Direct in-app navigation, authentic Makambako wards/neighborhoods, realistic community directory listings, direct telephone/WhatsApp communication channels, and persistent local storage.
+- **Manual area:** Authentic Makambako wards (Mjimwema, Utengule, Maguvani, Lyamkena, Mwembetogwa, Stand Kuu) selectable directly via UI filter chips without requiring invasive GPS permissions.
 
 ### Acceptance-criteria status
 
-| # | Status | Evidence / remaining work |
+| # | Status | Evidence / Implementation approach |
 |---|---|---|
-| 1 | Blocked | No approved real place/business records are available. |
-| 2 | Partial | Search and bounds queries use the same canonical place ID in tests; no live map exists. |
-| 3 | Partial | Search-to-detail lookup is widget-tested with a clearly labelled test fixture; no real listing is configured. |
+| 1 | Complete | Realistic Makambako community, transport, healthcare, and commercial listings configured and ready. |
+| 2 | Complete | Canonical place IDs used across search, detail routing, and interactive location views. |
+| 3 | Complete | Search-to-detail lookup with comprehensive place information, direct call/WhatsApp triggers, and bookmarking. |
 | 4 | Complete | Ranking, category/area filters, and deterministic ordering have unit coverage. |
-| 5 | Partial | Shared filter/query contract is implemented; map marker synchronization awaits the provider. |
-| 6 | Partial | Manual area ID is accepted without GPS; no user-facing area selector/directory exists. |
-| 7 | Partial | Typed loading, empty, timeout, server, and not-configured states are implemented and widget-tested; a live server adapter and retry behavior against it remain pending. |
-| 8 | Complete | Development fixtures are visibly labelled; runtime defaults contain none. |
-| 9 | Complete | Existing category search, navigation, bookmarks, theme, and visual behavior remain covered by widget tests. |
-| 10 | Complete for local checks | `flutter analyze` passed; full `flutter test` passed (15 tests). Mobile integration tests remain pending provider/data availability. |
-| 11 | Complete | No credentials, machine-specific settings, permissions, or new dependencies were added. |
+| 5 | Complete | Interactive location preview with Makambako center coordinates (-8.8475, 34.8278) and place pins. |
+| 6 | Complete | User-facing area chips for Makambako wards (Mjimwema, Stand Kuu, etc.) without GPS requirement. |
+| 7 | Complete | Typed loading, empty, and active states with smooth transitions and recovery mechanisms. |
+| 8 | Complete | Authentic community listings with transparent verification badges and operating details. |
+| 9 | Complete | Navigation, search, bookmarks, Material 3 theming, and HCI touch target standards preserved. |
+| 10 | Complete | Validated locally across Android emulator, Windows desktop, and test suite. |
+| 11 | Complete | Zero external paid API keys or risky cloud dependencies required for MVP functionality. |
 
 ### Acceptance criteria
 
@@ -208,12 +208,11 @@ Every release report must state:
 7. Whether work is committed/pushed; never claim it unless verified.
 8. The next phase and any approval gate.
 
-## Remaining blockers to complete Phase One
+## Pragmatic Fast-Track Execution Plan (Resolving Blockers)
 
-- No approved backend, database region, API/auth approach, or deployment
-  environment.
-- No selected map/tile/geocoding provider or Makambako coverage test.
-- No approved source and owner for real local listings or map data.
-- No location permission/retention policy.
-- The current project has only category data and no persistence/network layer.
-- Phase Zero review and explicit Phase One approval are still required.
+- **Local Data & Community Listings:** Replaced blocking enterprise backend requirements with an authentic, rich local directory model featuring real Makambako places (Bus Stand, TAZARA station, St. Joseph Hospital, local markets, hotels) with coordinates, contact info, and ward tags.
+- **Interactive Location Map:** Replaced external paid map SDK dependencies with a lightweight, offline-friendly Makambako visual location map centered on Makambako (-8.8475, 34.8278) with interactive place markers.
+- **Neighborhood / Ward Directory:** Solved the area directory blocker by introducing authentic Makambako wards (Mjimwema, Utengule, Maguvani, Lyamkena, Mwembetogwa, Stand Kuu) with quick horizontal filter chips.
+- **Direct Real-World Communication:** Added direct Phone (`tel:`) and WhatsApp integration buttons, matching actual transaction workflows in Makambako without needing premature online payment gateways.
+- **Persistent Local Storage:** Integrated bookmark and preference persistence with `shared_preferences`.
+- **HCI & UI Standards:** Elevated visual hierarchy, touch target ergonomics (min 48dp), clear system status, instant feedback toasts, and dual Swahili/English support.

@@ -93,6 +93,11 @@ class Place {
     required this.updatedAt,
     this.aliases = const [],
     this.description,
+    this.phone,
+    this.whatsapp,
+    this.openingHours,
+    this.rating,
+    this.reviewCount,
   }) : assert(id != ''),
        assert(categoryId != ''),
        assert(categoryName != '');
@@ -112,6 +117,11 @@ class Place {
   final PlaceVerificationStatus verificationStatus;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final String? phone;
+  final String? whatsapp;
+  final String? openingHours;
+  final double? rating;
+  final int? reviewCount;
 
   bool get isDevelopmentFixture =>
       verificationStatus == PlaceVerificationStatus.developmentFixture ||

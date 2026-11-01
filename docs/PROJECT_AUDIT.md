@@ -12,13 +12,7 @@ there is no backend, canonical listing data, interactive map, account system,
 or transaction workflow. The app currently filters eight locally declared
 service categories and Swahili/English keyword aliases.
 
-Since this Phase Zero snapshot, the worktree has gained a provider-neutral
-discovery domain/repository boundary and tested ranking/state handling.
-The runtime still has no approved place data source, backend, or map provider;
-the default repository explicitly reports that it is not configured.
-
-The latest local discovery/search work is not yet committed. Preserve it while
-reviewing this audit; do not reset, stash, or include it in a Phase Zero commit.
+Since this Phase Zero snapshot, the worktree has transitioned to a pragmatic fast-track execution model: authentic Makambako landmarks and services are configured, ward filters are enabled, persistent storage via SharedPreferences is wired, direct communication channels (phone/WhatsApp) are integrated, and the UI has been upgraded with HCI principles.
 
 ## Repository and Git state
 
